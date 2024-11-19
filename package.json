@@ -2,9 +2,12 @@
   "name": "medical-ai-system",
   "version": "1.0.0",
   "description": "```\r medical-ai-system/\r ├── src/\r │   ├── config/\r │   │   ├── database.js\r │   │   ├── storage.js\r │   │   └── auth.js\r │   ├── modules/\r │   │   ├── auth/\r │   │   ├── hce/\r │   │   ├── sgd/\r │   │   └── ai/\r │   ├── shared/\r │   │   ├── middlewares/\r │   │   ├── utils/\r │   │   └── services/\r │   ├── routes/\r │   └── app.js\r ├── docs/\r └── tests/\r ```",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "clean": "rm -rf uploads/*",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
