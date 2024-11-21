@@ -23,9 +23,9 @@ app.get('/health', (req, res) => {
 
 // Routes
 app.use('/api/auth', require('./modules/auth/routes'));
-app.use('/api/hce', require('./modules/hce/routes'));
-app.use('/api/sgd', require('./modules/sgd/routes'));
-app.use('/api/ai', require('./modules/ai/routes'));
+// app.use('/api/hce', require('./modules/hce/routes'));
+// app.use('/api/sgd', require('./modules/sgd/routes'));
+// app.use('/api/ai', require('./modules/ai/routes'));
 
 // Error Handling
 app.use(errorHandler);
