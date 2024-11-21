@@ -1,3 +1,5 @@
+// src/config/database.js
+
 require('dotenv').config();
 
 module.exports = {
@@ -6,15 +8,25 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
-    dialect: 'postgresql',
-    logging: false
+    port: process.env.DB_PORT,
+    dialect: 'postgres',
+    define: {
+      timestamps: true,
+      underscored: true
+    },
+    logging: console.log
   },
   test: {
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME_TEST,
+    database: process.env.DB_NAME,
     host: process.env.DB_HOST,
-    dialect: 'postgresql',
+    port: process.env.DB_PORT,
+    dialect: 'postgres',
+    define: {
+      timestamps: true,
+      underscored: true
+    },
     logging: false
   },
   production: {
@@ -22,7 +34,12 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
-    dialect: 'postgresql',
+    port: process.env.DB_PORT,
+    dialect: 'postgres',
+    define: {
+      timestamps: true,
+      underscored: true
+    },
     logging: false,
     pool: {
       max: 5,
