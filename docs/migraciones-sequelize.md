@@ -1,3 +1,101 @@
+# Configuración y Uso de Migraciones Sequelize
+
+## 1. Configuración Inicial
+
+1. Instalar Sequelize CLI globalmente (opcional):
+```bash
+npm install -g sequelize-cli
+```
+
+2. Instalar dependencias necesarias en el proyecto:
+```bash
+npm install --save sequelize pg pg-hstore
+npm install --save-dev sequelize-cli
+```
+
+3. Crear archivo `.sequelizerc` en la raíz del proyecto:
+```javascript
+const path = require('path');
+
+module.exports = {
+  'config': path.resolve('src/config', 'database.js'),
+  'models-path': path.resolve('src/models'),
+  'seeders-path': path.resolve('src/database/seeders'),
+  'migrations-path': path.resolve('src/database/migrations')
+};
+```
+
+## 2. Inicialización
+
+1. Inicializar Sequelize en el proyecto:
+```bash
+npx sequelize-cli init
+```
+Esto creará las carpetas necesarias según la configuración de `.sequelizerc`
+
+## 3. Generación de Migraciones
+
+Para generar una nueva migración:
+```bash
+npx sequelize-cli migration:generate --name create-roles
+```
+
+Esto generará automáticamente un archivo con timestamp en `/src/database/migrations` con esta estructura:
+```javascript
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up (queryInterface, Sequelize) {
+    /**
+     * Add altering commands here.
+     *
+     * Example:
+     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
+     */
+  },
+
+  async down (queryInterface, Sequelize) {
+    /**
+     * Add reverting commands here.
+     *
+     * Example:
+     * await queryInterface.dropTable('users');
+     */
+  }
+};
+```
+
+## 4. Scripts en package.json
+
+```json
+{
+  "scripts": {
+    "migrate:generate": "sequelize-cli migration:generate --name",
+    "migrate:run": "sequelize-cli db:migrate",
+    "migrate:undo": "sequelize-cli db:migrate:undo",
+    "migrate:undo:all": "sequelize-cli db:migrate:undo:all",
+    "seed:generate": "sequelize-cli seed:generate --name",
+    "seed:run": "sequelize-cli db:seed:all",
+    "seed:undo": "sequelize-cli db:seed:undo",
+    "seed:undo:all": "sequelize-cli db:seed:undo:all"
+  }
+}
+```
+
+## 5. Uso
+
+1. Generar una nueva migración:
+```bash
+npm run migrate:generate create-roles
+```
+
+2. Editar la migración generada en /src/database/migrations
+3. Ejecutar la migración:
+```bash
+npm run migrate:run
+```
+
 # Generación de Migraciones en Sequelize
 
 ## 1. Generación Manual de Migración
