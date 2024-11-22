@@ -3,6 +3,22 @@
 ## Descripción
 Módulo para la gestión completa de pacientes en el sistema médico, permitiendo el registro, consulta, actualización y eliminación de información de pacientes.
 
+Cubrimos todo lo necesario para el módulo de Pacientes:
+
+✅ Migración y Modelo
+✅ Controlador con CRUD completo
+✅ Rutas con validaciones
+✅ Middlewares de autenticación y roles
+✅ Documentación técnica
+✅ Guía de pruebas
+✅ Diagrama de rutas
+
+Lo único que podríamos añadir serían funcionalidades adicionales como:
+1. Búsqueda de pacientes (por nombre, email, etc.)
+2. Paginación para la lista de pacientes
+3. Filtros (por edad, sexo, etc.)
+4. Exportación de datos de pacientes
+
 ## Tecnologías Utilizadas
 - **Sequelize**: ORM para manejo del modelo de pacientes
 - **Express**: Routing y middleware
