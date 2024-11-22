@@ -4,7 +4,7 @@ const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validateJWT } = require('../middlewares/validar-jwt');
 const { validarRoles } = require('../middlewares/validar-roles');
-const { login, registro, renewToken, adminDashboard } = require('../controllers/auth.controller');
+const { login, registro, renewToken, adminDashboard, asignarRol } = require('../controllers/auth.controller');
 
 const router = Router();
 
@@ -30,5 +30,13 @@ router.get('/admin', [
     validateJWT,
     validarRoles('ADMIN')
 ], adminDashboard);
+
+router.post('/asignar-rol', [
+    validateJWT,
+    validarRoles('ADMIN'),
+    check('usuarioId', 'El ID de usuario es obligatorio').not().isEmpty(),
+    check('rolNombre', 'El nombre del rol es obligatorio').not().isEmpty(),
+    validarCampos
+], asignarRol);
 
 module.exports = router;

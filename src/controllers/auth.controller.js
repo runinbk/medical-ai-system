@@ -143,6 +143,57 @@ const authController = {
                 msg: 'Error en el servidor'
             });
         }
+    },
+
+    asignarRol: async (req, res) => {
+        try {
+            const { usuarioId, rolNombre } = req.body;
+    
+            // Verificar usuario
+            const usuario = await Usuario.findByPk(usuarioId);
+            if (!usuario) {
+                return res.status(404).json({
+                    msg: 'Usuario no encontrado'
+                });
+            }
+    
+            // Verificar rol
+            const rol = await Role.findOne({ where: { nombre: rolNombre } });
+            if (!rol) {
+                return res.status(404).json({
+                    msg: 'Rol no encontrado'
+                });
+            }
+    
+            // Asignar rol
+            await usuario.addRole(rol);
+    
+            // Obtener usuario actualizado
+            const usuarioActualizado = await Usuario.findOne({
+                where: { id: usuarioId },
+                include: [{
+                    model: Role,
+                    as: 'roles',
+                    attributes: ['nombre'],
+                    through: { attributes: [] }
+                }]
+            });
+    
+            res.json({
+                msg: 'Rol asignado correctamente',
+                usuario: {
+                    id: usuarioActualizado.id,
+                    nombre: usuarioActualizado.nombre,
+                    email: usuarioActualizado.email,
+                    roles: usuarioActualizado.roles.map(r => r.nombre)
+                }
+            });
+        } catch (error) {
+            console.error('Error al asignar rol:', error);
+            res.status(500).json({
+                msg: 'Error en el servidor'
+            });
+        }
     }
 };
 
