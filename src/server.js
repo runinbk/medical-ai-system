@@ -8,13 +8,14 @@ const { dbConnection } = require('./database/config');
 class Server {
     constructor() {
         this.app = express();
-        this.port = process.env.PORT;
+        this.port = process.env.PORT || 3000;
 
         // Paths para cada módulo del sistema
         this.paths = {
             auth: '/api/auth',
+            pacientes: '/api/pacientes',
+
             users: '/api/users',
-            patients: '/api/patients',
             doctors: '/api/doctors',
             appointments: '/api/appointments',
             documents: '/api/documents',
@@ -82,7 +83,7 @@ class Server {
         // this.app.use(this.paths.users, require('../routes/users'));
         
         // // Medical records routes
-        // this.app.use(this.paths.patients, require('../routes/patients'));
+        this.app.use(this.paths.pacientes, require('./routes/pacientes.routes'));
         // this.app.use(this.paths.doctors, require('../routes/doctors'));
         // this.app.use(this.paths.appointments, require('../routes/appointments'));
         
