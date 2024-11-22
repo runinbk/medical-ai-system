@@ -4,7 +4,7 @@
 
 ## 💻 Arquitectura
 
-´´´mermaid
+```mermaid
 graph TB
     subgraph Frontend
         WebApp[Web Application]
@@ -48,11 +48,11 @@ graph TB
     SGD --> FileHandler
     AI --> ImageProcessor
     HCE --> NotificationService
-´´´
+```
 
 ## 💽 Base de Datos
 
-´´´mermaid
+```mermaid
 erDiagram
     Usuarios ||--o{ Acceso_Documento : tiene
     Usuarios ||--o{ Historial_Cambios : registra
@@ -290,4 +290,4 @@ erDiagram
         int entidad_id
         timestamp created_at
     }
-´´´
+```
