@@ -1,5 +1,15 @@
 # Módulo de Autenticación - Documentación Técnica
 
+## Descripcion basica del modulo
+
+Sistema completo de administración de usuarios, que incluye:
+
+1. Registro con rol por defecto
+2. Login con JWT
+3. Validación de roles
+4. Asignación de roles
+5. Middleware de protección de rutas
+
 ## Tecnologías Utilizadas
 - **JWT (jsonwebtoken)**: Generación y validación de tokens de autenticación
 - **bcryptjs**: Encriptación de contraseñas
