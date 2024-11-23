@@ -50,15 +50,6 @@ module.exports = {
       seguimiento: {
         type: Sequelize.TEXT
       },
-      diagnostico_ia_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'diagnosticos_ia',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
-      },
       notas: {
         type: Sequelize.TEXT
       },
