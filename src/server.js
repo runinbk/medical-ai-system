@@ -16,10 +16,10 @@ class Server {
             pacientes: '/api/pacientes',
             medicos: '/api/medicos',
             consultas: '/api/consultas',
+            examenes: '/api/examenes',
 
             users: '/api/users',
             documents: '/api/documents',
-            examinations: '/api/examinations',
             prescriptions: '/api/prescriptions',
             ai: '/api/ai-analysis',
             search: '/api/search',
@@ -88,8 +88,8 @@ class Server {
         this.app.use(this.paths.consultas, require('./routes/consultas.routes'));
         
         // // Document management routes
+        this.app.use(this.paths.examenes, require('./routes/examenes.routes'));
         // this.app.use(this.paths.documents, require('../routes/documents'));
-        // this.app.use(this.paths.examinations, require('../routes/examinations'));
         // this.app.use(this.paths.prescriptions, require('../routes/prescriptions'));
         
         // // AI and utilities routes
