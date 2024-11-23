@@ -14,9 +14,9 @@ class Server {
         this.paths = {
             auth: '/api/auth',
             pacientes: '/api/pacientes',
+            medicos: '/api/medicos',
 
             users: '/api/users',
-            doctors: '/api/doctors',
             appointments: '/api/appointments',
             documents: '/api/documents',
             examinations: '/api/examinations',
@@ -84,7 +84,7 @@ class Server {
         
         // // Medical records routes
         this.app.use(this.paths.pacientes, require('./routes/pacientes.routes'));
-        // this.app.use(this.paths.doctors, require('../routes/doctors'));
+        this.app.use(this.paths.medicos, require('./routes/medicos.routes'));
         // this.app.use(this.paths.appointments, require('../routes/appointments'));
         
         // // Document management routes
