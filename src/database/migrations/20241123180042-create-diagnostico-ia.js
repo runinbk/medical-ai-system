@@ -3,44 +3,6 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    // Primero creamos la tabla de modelos IA
-    await queryInterface.createTable('modelos_ia', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      nombre: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      version: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      descripcion: Sequelize.TEXT,
-      tipo_analisis: {
-        type: Sequelize.ENUM('RADIOGRAFIA', 'TOMOGRAFIA', 'RESONANCIA', 'OTRO'),
-        allowNull: false
-      },
-      activo: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true
-      },
-      created_at: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
-      },
-      updated_at: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
-      }
-    });
-
-    // Luego creamos la tabla de diagnósticos
     await queryInterface.createTable('diagnosticos_ia', {
       id: {
         allowNull: false,
@@ -90,9 +52,7 @@ module.exports = {
         type: Sequelize.JSON,
         allowNull: false
       },
-      anomalia_detectada: {
-        type: Sequelize.TEXT
-      },
+      anomalia_detectada: Sequelize.TEXT,
       gravedad: {
         type: Sequelize.ENUM('BAJA', 'MEDIA', 'ALTA', 'CRITICA'),
         allowNull: false
@@ -105,9 +65,7 @@ module.exports = {
           max: 1
         }
       },
-      recomendaciones: {
-        type: Sequelize.TEXT
-      },
+      recomendaciones: Sequelize.TEXT,
       validado_por: {
         type: Sequelize.INTEGER,
         references: {
@@ -119,9 +77,7 @@ module.exports = {
         type: Sequelize.ENUM('PENDIENTE', 'VALIDADO', 'RECHAZADO'),
         defaultValue: 'PENDIENTE'
       },
-      comentarios_medico: {
-        type: Sequelize.TEXT
-      },
+      comentarios_medico: Sequelize.TEXT,
       activo: {
         type: Sequelize.BOOLEAN,
         defaultValue: true
@@ -149,6 +105,5 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('diagnosticos_ia');
-    await queryInterface.dropTable('modelos_ia');
   }
 };
