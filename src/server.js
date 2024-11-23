@@ -18,10 +18,10 @@ class Server {
             consultas: '/api/consultas',
             examenes: '/api/examenes',
             documentos: '/api/documentos',
+            diagnosticosIA: '/api/diagnosticos-ia',
 
             users: '/api/users',
             prescriptions: '/api/prescriptions',
-            ai: '/api/ai-analysis',
             search: '/api/search',
             uploads: '/api/uploads'
         };
@@ -93,7 +93,7 @@ class Server {
         // this.app.use(this.paths.prescriptions, require('../routes/prescriptions'));
         
         // // AI and utilities routes
-        // this.app.use(this.paths.ai, require('../routes/ai-analysis'));
+        this.app.use(this.paths.diagnosticosIA, require('./routes/diagnosticoIA.routes'));
         // this.app.use(this.paths.search, require('../routes/search'));
         // this.app.use(this.paths.uploads, require('../routes/uploads'));
 
