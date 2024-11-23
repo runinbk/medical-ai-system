@@ -1,4 +1,4 @@
-// src/services/ia.service.js
+
 const axios = require('axios');
 
 class IAService {
