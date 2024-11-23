@@ -3,6 +3,29 @@
 ## Descripción
 Módulo para la gestión integral de documentos médicos, permitiendo el almacenamiento, recuperación y gestión de archivos relacionados con pacientes, consultas y exámenes.
 
+Revisemos lo que tenemos para el módulo de Documentos:
+ * ✅ Migración con todas las relaciones
+ * ✅ Modelo con validaciones
+ * ✅ Controlador CRUD completo
+ * ✅ Sistema de archivos configurado
+ * ✅ Manejo de versiones de documentos
+ * ✅ Rutas con validaciones y control de roles
+ * ✅ Tipos de documentos definidos
+ * ✅ Sistema de almacenamiento
+ * ✅ Documentación técnica
+ * ✅ Guía de pruebas
+ * ✅ Diagrama de rutas
+
+Lo único que podríamos añadir serían características adicionales como:
+1. Compresión de archivos
+2. Preview de documentos
+3. OCR para documentos escaneados
+4. Búsqueda por contenido
+5. Sistema de etiquetas
+6. Historial de visualizaciones
+
+Pero estas son características que podrían implementarse después según las necesidades.
+
 ## Tecnologías Utilizadas
 - **Sequelize**: ORM para manejo del modelo de documentos
 - **Express**: Routing y middleware
