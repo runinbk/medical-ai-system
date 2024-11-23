@@ -14,14 +14,14 @@ class Server {
         this.paths = {
             auth: '/api/auth',
             pacientes: '/api/pacientes',
+            medicos: '/api/medicos',
+            consultas: '/api/consultas',
+            examenes: '/api/examenes',
+            documentos: '/api/documentos',
+            diagnosticosIA: '/api/diagnosticos-ia',
 
             users: '/api/users',
-            doctors: '/api/doctors',
-            appointments: '/api/appointments',
-            documents: '/api/documents',
-            examinations: '/api/examinations',
             prescriptions: '/api/prescriptions',
-            ai: '/api/ai-analysis',
             search: '/api/search',
             uploads: '/api/uploads'
         };
@@ -84,16 +84,16 @@ class Server {
         
         // // Medical records routes
         this.app.use(this.paths.pacientes, require('./routes/pacientes.routes'));
-        // this.app.use(this.paths.doctors, require('../routes/doctors'));
-        // this.app.use(this.paths.appointments, require('../routes/appointments'));
+        this.app.use(this.paths.medicos, require('./routes/medicos.routes'));
+        this.app.use(this.paths.consultas, require('./routes/consultas.routes'));
         
         // // Document management routes
-        // this.app.use(this.paths.documents, require('../routes/documents'));
-        // this.app.use(this.paths.examinations, require('../routes/examinations'));
+        this.app.use(this.paths.examenes, require('./routes/examenes.routes'));
+        this.app.use(this.paths.documentos, require('./routes/documentos.routes'));
         // this.app.use(this.paths.prescriptions, require('../routes/prescriptions'));
         
         // // AI and utilities routes
-        // this.app.use(this.paths.ai, require('../routes/ai-analysis'));
+        this.app.use(this.paths.diagnosticosIA, require('./routes/diagnosticoIA.routes'));
         // this.app.use(this.paths.search, require('../routes/search'));
         // this.app.use(this.paths.uploads, require('../routes/uploads'));
 
