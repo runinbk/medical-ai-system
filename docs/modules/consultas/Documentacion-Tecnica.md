@@ -5,15 +5,15 @@ Módulo para la gestión integral de consultas médicas, permitiendo agendar, ac
 
 Revisemos lo que tenemos para el módulo de Consultas:
 
-✅ Migración con todas las relaciones necesarias
-✅ Modelo con validaciones y hooks
-✅ Controlador CRUD completo
-✅ Rutas con validaciones y control de roles
-✅ Funcionalidades específicas:
-  - Consultas por médico
-  - Consultas por paciente
-  - Estados de consulta (PENDIENTE, CONFIRMADA, COMPLETADA, CANCELADA)
-  - Validación de disponibilidad del médico
+ * ✅ Migración con todas las relaciones necesarias
+ * ✅ Modelo con validaciones y hooks
+ * ✅ Controlador CRUD completo
+ * ✅ Rutas con validaciones y control de roles
+ * ✅ Funcionalidades específicas:
+    - Consultas por médico
+    - Consultas por paciente
+    - Estados de consulta (PENDIENTE, CONFIRMADA, COMPLETADA, CANCELADA)
+    - Validación de disponibilidad del médico
 
 Lo único que podríamos añadir serían características adicionales como:
 1. Paginación de resultados

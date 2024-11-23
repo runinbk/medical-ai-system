@@ -5,13 +5,13 @@ Módulo para la gestión integral de médicos en el sistema, permitiendo el regi
 
 Cubrimos todo lo necesario para el módulo de Pacientes:
 
-✅ Migración y Modelo
-✅ Controlador con CRUD completo
-✅ Rutas con validaciones
-✅ Middlewares de autenticación y roles
-✅ Documentación técnica
-✅ Guía de pruebas
-✅ Diagrama de rutas
+  *  ✅ Migración y Modelo
+  *  ✅ Controlador con CRUD completo
+  *  ✅ Rutas con validaciones
+  *  ✅ Middlewares de autenticación y roles
+  *  ✅ Documentación técnica
+  *  ✅ Guía de pruebas
+  *  ✅ Diagrama de rutas
 
 Lo que podríamos añadir al módulo de Médicos serían características avanzadas como:
 1. Búsqueda avanzada (filtros múltiples)

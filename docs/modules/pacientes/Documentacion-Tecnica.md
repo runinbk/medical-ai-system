@@ -5,13 +5,13 @@ Módulo para la gestión completa de pacientes en el sistema médico, permitiend
 
 Cubrimos todo lo necesario para el módulo de Pacientes:
 
-✅ Migración y Modelo
-✅ Controlador con CRUD completo
-✅ Rutas con validaciones
-✅ Middlewares de autenticación y roles
-✅ Documentación técnica
-✅ Guía de pruebas
-✅ Diagrama de rutas
+  *  ✅ Migración y Modelo
+  *  ✅ Controlador con CRUD completo
+  *  ✅ Rutas con validaciones
+  *  ✅ Middlewares de autenticación y roles
+  *  ✅ Documentación técnica
+  *  ✅ Guía de pruebas
+  *  ✅ Diagrama de rutas
 
 Lo único que podríamos añadir serían funcionalidades adicionales como:
 1. Búsqueda de pacientes (por nombre, email, etc.)
