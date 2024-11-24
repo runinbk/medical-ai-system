@@ -22,15 +22,15 @@ Sistema médico integral que combina gestión de historiales clínicos con anál
 - **Servicios Externos**: Axios
 
 ## 📋 Prerrequisitos
-- Node.js (v14 o superior)
-- PostgreSQL (v12 o superior)
+- Node.js (v20 o superior)
+- PostgreSQL (v17 o superior)
 - npm o yarn
 
 ## 🔧 Instalación y Configuración
 
 1. **Clonar el repositorio**
 ```bash
-git clone [url-del-repositorio]
+git clone https://github.com/runinbk/medical-ai-system.git #url-del-repositorio
 cd medical-ai-system
 ```
 
@@ -41,7 +41,7 @@ npm install
 
 3. **Configurar variables de entorno**
 ```bash
-cp .env.example .env
+cp example.env .env
 ```
 Editar `.env` con tus configuraciones:
 ```env
@@ -495,3 +495,10 @@ erDiagram
 ## 📄 Licencia
 Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.md) para detalles.
 
+## ✍️ Autor
+
+- **Kevin B. Gomoez R.** - *Software Developer* - [runinbk💻🔥](https://github.com/runinbk)
+
+## 🎁 Agradecimientos
+
+- Al esplendido equipo con el que trabajo ❤
