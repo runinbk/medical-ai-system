@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: medical_system_app
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=medical_ai_db
+      - DB_USER=postgres
+      - DB_PASSWORD=secretpass
+      - JWT_SECRET=your_jwt_secret
+      - JWT_EXPIRES_IN=24h
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+      - uploads:/usr/src/app/uploads
+    depends_on:
+      - db
+    networks:
+      - medical_net
+
+  db:
+    image: postgres:14-alpine
+    container_name: medical_system_db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=medical_ai_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secretpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - medical_net
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: medical_system_pgadmin
+    restart: unless-stopped
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - db
+    networks:
+      - medical_net
+
+volumes:
+  postgres_data:
+  pgadmin_data:
+  uploads:
+
+networks:
+  medical_net:
+    driver: bridge

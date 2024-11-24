@@ -3,6 +3,8 @@
 ## 📋 Descripción
 Sistema médico integral que combina gestión de historiales clínicos con análisis automatizado de imágenes médicas mediante IA. Diseñado para facilitar la administración de pacientes, consultas, exámenes y diagnósticos asistidos por inteligencia artificial.
 
+-> Si quieres profundizar mas en el proyecto, las rutas, tecnologías utilizadas y demás, ve al siguiente [***enlace***](./docs/index.md)
+
 ## 🚀 Características Principales
 - Gestión de usuarios con roles (Admin, Doctor, Enfermero)
 - Administración de pacientes y historiales clínicos
@@ -409,7 +411,7 @@ erDiagram
 5. Abrir Pull Request
 
 ## 📄 Licencia
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.md) para detalles.
+Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](./LICENSE) para detalles.
 
 ## ✍️ Autor
 
