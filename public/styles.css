@@ -1,85 +1,123 @@
-:root {
-    --primary-color: #2563eb;
-    --secondary-color: #1e40af;
-    --text-color: #1f2937;
-    --background-color: #f3f4f6;
-    --card-background: #ffffff;
-    --header-height: 60px;
-    --nav-height: 60px;
-}
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--background-color);
-    padding-top: calc(var(--header-height) + var(--nav-height)); /* Espacio para header y nav fijos */
-}
-
-.header {
-    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-    color: white;
-    padding: 1rem;
+.navbar {
     position: fixed;
     top: 0;
-    left: 0;
-    right: 0;
-    height: var(--header-height);
-    z-index: 1000;
-}
-
-.nav {
-    background: var(--card-background);
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    position: fixed;
-    top: var(--header-height);
-    left: 0;
-    right: 0;
-    height: var(--nav-height);
-    z-index: 900;
-}
-
-.nav-links {
-    display: flex;
-    gap: 1rem;
-    overflow-x: auto;
-}
-
-.nav-links a {
-    color: var(--primary-color);
-    text-decoration: none;
-    white-space: nowrap;
-    padding: 0.5rem;
-}
-
-.nav-links a:hover {
-    color: var(--secondary-color);
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
+    width: 100%;
+    background: white;
+    z-index: 50;
 }
 
 .main-content {
-    margin-top: 2rem;
+    padding-top: 64px; /* altura del navbar */
 }
 
-.section {
-    margin: 2rem 0;
-    padding: 2rem;
-    background: var(--card-background);
+section {
+    scroll-margin-top: 64px;
+    padding: 3rem 0;
+}
+
+.hero-image {
+    background-color: #f3f4f6;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    border: 1px solid #e5e7eb;
+}
+
+.feature-image {
+    background-color: #f3f4f6;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    border: 1px solid #e5e7eb;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    background-color: white;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    scroll-margin-top: calc(var(--header-height) + var(--nav-height) + 2rem); /* Ajuste para scroll */
 }
 
-/* Resto de los estilos se mantienen igual... */
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+}
+
+.navbar-mobile {
+    display: none;
+}
+
+.pricing-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-card.highlight {
+    border: 2px solid #3b82f6;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+}
+
+.benefit-item::before {
+    content: '✓';
+    color: #10b981;
+    margin-right: 0.5rem;
+}
+
+#mobileMenu {
+    position: absolute;
+    width: 100%;
+    top: 64px;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+#mobileMenu a {
+    display: block;
+    padding: 1rem;
+    color: #4B5563;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+#mobileMenu a:last-child {
+    border-bottom: none;
+}
+
+#mobileMenu a:hover {
+    background-color: #F3F4F6;
+    color: #2563EB;
+}
+
+@media (max-width: 768px) {
+    .navbar-desktop {
+        display: none;
+    }
+    .navbar-mobile {
+        display: block;
+    }
+}
