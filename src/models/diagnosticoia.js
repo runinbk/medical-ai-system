@@ -1,4 +1,3 @@
-
 'use strict';
 const { Model } = require('sequelize');
 
@@ -6,74 +5,41 @@ module.exports = (sequelize, DataTypes) => {
   class DiagnosticoIA extends Model {
     static associate(models) {
       DiagnosticoIA.belongsTo(models.Paciente, {
-        foreignKey: 'paciente_id',
+        foreignKey: 'id_paciente',
         as: 'paciente'
       });
 
-      DiagnosticoIA.belongsTo(models.Examen, {
-        foreignKey: 'examen_id',
-        as: 'examen'
-      });
-
-      DiagnosticoIA.belongsTo(models.ModeloIA, {
-        foreignKey: 'modelo_id',
-        as: 'modelo'
-      });
-
       DiagnosticoIA.belongsTo(models.Usuario, {
-        foreignKey: 'validado_por',
-        as: 'validador'
+        foreignKey: 'id_user',
+        as: 'usuario'
       });
     }
   }
 
   DiagnosticoIA.init({
-    paciente_id: {
+    id_paciente: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    examen_id: DataTypes.INTEGER,
-    modelo_id: {
+    id_user: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    fecha: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
-    },
-    imagen_url: {
-      type: DataTypes.STRING,
+    diagnostico_ia: {
+      type: DataTypes.TEXT,
       allowNull: false
     },
-    resultado: {
-      type: DataTypes.JSON,
+    diagnostico_medico: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    imagen_original: {
+      type: DataTypes.TEXT,
       allowNull: false
     },
-    anomalia_detectada: DataTypes.TEXT,
-    gravedad: {
-      type: DataTypes.ENUM('BAJA', 'MEDIA', 'ALTA', 'CRITICA'),
-      allowNull: false,
-      defaultValue: 'MEDIA'
-    },
-    confianza: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
-      validate: {
-        min: 0,
-        max: 1
-      }
-    },
-    recomendaciones: DataTypes.TEXT,
-    validado_por: DataTypes.INTEGER,
-    estado: {
-      type: DataTypes.ENUM('PENDIENTE', 'VALIDADO', 'RECHAZADO'),
-      defaultValue: 'PENDIENTE'
-    },
-    comentarios_medico: DataTypes.TEXT,
-    activo: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true
+    imagen_marcada_ia: {
+      type: DataTypes.TEXT,
+      allowNull: true
     }
   }, {
     sequelize,
