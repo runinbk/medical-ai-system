@@ -187,8 +187,6 @@ module.exports = {
 
 ## 3. Modificación de Tablas Existentes
 
-Te ayudo a añadir el campo descripción a tu tabla Prueba manteniendo los datos existentes.
-
 1. Primero, genera una nueva migración:
 
 ```bash
@@ -253,9 +251,123 @@ Si necesitas revertir el cambio en algún momento, puedes usar:
 npx sequelize-cli db:migrate:undo
 ```
 
-¿Necesitas hacer algún otro cambio en la tabla?
+## 4. Modificación de Tablas Existentes - Creando una llave Foranea
 
-## 4. Tipos de Cambios en Migraciones
+1. Primero, genera una nueva migración para añadir la columna de llave foránea:
+
+```bash
+npx sequelize-cli migration:generate --name add_usuario_id_to_prueba
+```
+
+2. En la nueva migración, añade el código para crear la relación:
+
+```javascript
+'use strict';
+
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.addColumn('Pruebas', 'usuario_id', {
+      type: Sequelize.INTEGER,
+      references: {
+        model: 'Usuarios', // nombre de la tabla referenciada
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'SET NULL',
+      allowNull: true // permite nulos para los registros existentes
+    });
+
+    // Opcionalmente, añadir un índice para mejorar el rendimiento
+    await queryInterface.addIndex('Pruebas', ['usuario_id']);
+  },
+
+  async down(queryInterface, Sequelize) {
+    await queryInterface.removeColumn('Pruebas', 'usuario_id');
+  }
+};
+```
+
+3. Actualiza los modelos para definir la asociación:
+
+En el modelo Prueba (`models/prueba.js`):
+```javascript
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Prueba extends Model {
+    static associate(models) {
+      // Define la relación con Usuario
+      Prueba.belongsTo(models.Usuario, {
+        foreignKey: 'usuario_id',
+        as: 'usuario'
+      });
+    }
+  }
+  Prueba.init({
+    nombre: DataTypes.STRING,
+    email: DataTypes.STRING,
+    descripcion: DataTypes.STRING,
+    usuario_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Usuarios',
+        key: 'id'
+      }
+    }
+  }, {
+    sequelize,
+    modelName: 'Prueba',
+  });
+  return Prueba;
+};
+```
+
+En el modelo Usuario (`models/usuario.js`), añade la relación inversa:
+```javascript
+static associate(models) {
+  // Define la relación con Prueba
+  Usuario.hasMany(models.Prueba, {
+    foreignKey: 'usuario_id',
+    as: 'pruebas'
+  });
+}
+```
+
+4. Ejecuta la migración:
+
+```bash
+npx sequelize-cli db:migrate
+```
+
+Ahora puedes usar la relación en tus consultas, por ejemplo:
+
+```javascript
+// Obtener una prueba con su usuario
+const prueba = await Prueba.findOne({
+  include: [{
+    model: Usuario,
+    as: 'usuario'
+  }]
+});
+
+// Obtener un usuario con sus pruebas
+const usuario = await Usuario.findOne({
+  include: [{
+    model: Prueba,
+    as: 'pruebas'
+  }]
+});
+```
+
+Importante:
+- Asegúrate de que la tabla 'Usuarios' existe y tiene la estructura correcta
+- La columna usuario_id se crea como nullable (allowNull: true) para mantener la compatibilidad con registros existentes
+- El nombre de la tabla referenciada ('Usuarios') debe coincidir exactamente con el nombre en tu base de datos
+- Las opciones onUpdate y onDelete definen qué sucede cuando se actualiza o elimina un usuario
+
+## 5. Tipos de Cambios en Migraciones
 
 Las migraciones pueden incluir:
 
