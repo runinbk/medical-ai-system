@@ -45,34 +45,40 @@ document.addEventListener('DOMContentLoaded', function() {
     // Features section functionality
     const moduleContent = {
         'mod-pacientes': {
-            title: 'Sistema de Gestión de Pacientes',
+            title: 'Historial Clínico Electrónico',
             features: [
-                'Historiales médicos digitales',
-                'Seguimiento de tratamientos',
-                'Gestión de citas'
+                'Gestión Centralizada de Información',
+                'Acceso en Tiempo Real',
+                'Personalización y Seguimiento'
             ],
-            description: 'Sistema integral para la gestión eficiente de información de pacientes, permitiendo un seguimiento detallado de historiales médicos y tratamientos.',
-            images: ['/api/placeholder/400/300', '/api/placeholder/400/300']
+            description1: 'Permite almacenar y acceder a la información médica de los pacientes de manera segura y organizada. Desde antecedentes médicos, alergias, hasta tratamientos previos, todo está disponible en un único lugar para facilitar la toma de decisiones.  ',
+            description2: 'Los médicos pueden consultar los historiales clínicos desde cualquier dispositivo autorizado, eliminando la necesidad de depender de documentos físicos o procesos manuales. Esto asegura una atención más eficiente.',
+            description3: '',
+            images: ['./img/SDG-1.png', './img/SDG-2.png']
         },
         'mod-diagnostico': {
             title: 'Diagnóstico Asistido por IA',
             features: [
-                'Detección de anomalías',
-                'Diagnóstico rápido',
-                'Detección de patologías'
+                'Análisis Automatizado de Radiografías',
+                'Resultados en Tiempo Récord',
+                'Asistencia para Decisiones Clínicas'
             ],
-            description: 'Sistema de IA avanzado para el análisis de radiografías de tórax, facilitando diagnósticos precisos y rápidos.',
-            images: ['/api/placeholder/400/300', '/api/placeholder/400/300']
+            description1: 'Utilizando modelos avanzados de aprendizaje profundo, el sistema analiza radiografías de tórax para detectar anomalías como tumores, infecciones y otras patologías con alta precisión.',
+            description2: 'Ofrece diagnósticos rápidos en cuestión de segundos, ayudando a priorizar pacientes críticos y reduciendo los tiempos de espera.',
+            description3: 'Funciona como un apoyo para el personal médico, sugiriendo posibles diagnósticos basados en patrones detectados, pero dejando siempre la decisión final en manos del especialista.',
+            images: ['./img/ia-diagnostico-1-0.jpg', './img/ia-diagnostico-2-0.jpg']
         },
         'mod-doctores': {
-            title: 'Sistema de Gestión de Doctores',
+            title: 'Sistema Gestor de Documentos',
             features: [
-                'Gestión de horarios',
-                'Asignación de pacientes',
-                'Registro de diagnósticos'
+                'Digitalización de Documentos Médicos',
+                'Búsqueda y Organización Eficiente',
+                'Seguridad y Cumplimiento'
             ],
-            description: 'Herramientas completas para que los médicos gestionen su práctica de manera eficiente.',
-            images: ['/api/placeholder/400/300', '/api/placeholder/400/300']
+            description1: 'Todos los registros, desde recetas hasta informes de laboratorio, son almacenados digitalmente en un sistema seguro y accesible. Esto elimina la dependencia de archivos físicos y reduce el riesgo de pérdida de información.',
+            description2: 'Incluye un motor de búsqueda avanzado que permite localizar documentos específicos en segundos mediante palabras clave, fechas o categorías.',
+            description3: 'arantiza la protección de los datos sensibles de los pacientes mediante cifrado, permisos personalizados y cumplimiento con normativas internacionales.',
+            images: ['./img/HCE-1-0.jpg', './img/HCE-2.png']
         }
     };
 
@@ -92,7 +98,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             </li>`
                         ).join('')}
                     </ul>
-                    <p class="text-gray-600">${content.description}</p>
+                    <p class="text-gray-600">${content.description1}</p>
+                    </br>
+                    <p class="text-gray-600">${content.description2}</p>
+                    </br>
+                    <p class="text-gray-600">${content.description3}</p>
                 </div>
                 <div class="space-y-4">
                     ${content.images.map(img => 
