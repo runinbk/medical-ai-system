@@ -100,6 +100,40 @@ x-token: [token-admin]
 }
 ```
 
+## Renovar Token
+```http
+GET http://localhost:3000/api/auth/renew
+x-token: jwt-token-actual
+```
+
+**Respuesta Exitosa**: Status 200
+```json
+{
+    "ok": true,
+    "token": "nuevo-jwt-token",
+    "usuario": {
+        "id": 1,
+        "nombre": "Usuario Test",
+        "email": "test@example.com",
+        "roles": ["DEFAULT_USER"]
+    }
+}
+```
+
+**Respuesta Error**: Status 401
+```json
+{
+    "msg": "No hay token en la petición"
+}
+```
+
+**Respuesta Error**: Status 500
+```json
+{
+    "msg": "Error en el servidor"
+}
+```
+
 ## Notas Importantes
 1. Guardar el token JWT recibido en las respuestas
 2. Incluir el token en el header `x-token` para rutas protegidas
