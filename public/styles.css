@@ -1,21 +1,27 @@
-
+/* Navbar styles */
 .navbar {
     position: fixed;
     top: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
     background: white;
     z-index: 50;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .main-content {
-    padding-top: 64px; /* altura del navbar */
+    padding-top: 64px;
+    position: relative;
+    z-index: 30;
 }
 
+/* General section styles */
 section {
     scroll-margin-top: 64px;
     padding: 3rem 0;
 }
 
+/* Colors */
 .text-navy-900 {
     color: #1a365d;
 }
@@ -24,58 +30,25 @@ section {
     background-color: #1a365d;
 }
 
-.module-btn.active svg {
-    color: white;
-}
-
-.module-container {
-    position: relative;
-    padding: 0 2rem;
-   }
-   
-.nav-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: white;
+/* Features section styles */
+.module-btn {
+    font-size: 1rem;
+    transition: all 0.3s ease;
     border: 1px solid #e5e7eb;
-    border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
 }
 
-/* .feature-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    z-index: 10;
-    color: #3B82F6;
-}
-
-.feature-track {
-    transform: translateX(0);
-} */
-
-.module-btn svg {
-    transition: color 0.3s ease;
+.module-btn:hover {
+    transform: translateX(5px);
 }
 
 .module-btn.active {
     background-color: #3B82F6;
     color: white;
+    border-color: #3B82F6;
+}
+
+.module-btn.active .icon-container {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .module-btn.active svg {
@@ -83,13 +56,15 @@ section {
 }
 
 .icon-container {
-    color: #2563eb;  /* azul por defecto */
+    color: #2563eb;
+    transition: background-color 0.3s ease;
 }
 
-.module-btn.active .icon-container {
-    color: white;
+#module-content {
+    min-height: 400px;
 }
 
+/* Cards and hover effects */
 .benefit-card {
     background: white;
     border-radius: 0.5rem;
@@ -109,68 +84,7 @@ section {
     transform: translateY(-5px);
 }
 
-.carousel-nav {
-    background: white;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.hero-image {
-    background-color: #f3f4f6;
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 0;
-    border: 1px solid #e5e7eb;
-}
-
-.feature-image {
-    background-color: #f3f4f6;
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    border: 1px solid #e5e7eb;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 1000;
-}
-
-.modal-content {
-    position: relative;
-    background-color: white;
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 20px;
-    border-radius: 8px;
-}
-
-.close-modal {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    cursor: pointer;
-}
-
-.navbar-mobile {
-    display: none;
-}
-
+/* Pricing section */
 .pricing-card {
     background-color: white;
     padding: 1.5rem;
@@ -182,22 +96,14 @@ section {
     border: 2px solid #3b82f6;
 }
 
-.benefit-item {
-    display: flex;
-    align-items: center;
-}
-
-.benefit-item::before {
-    content: '✓';
-    color: #10b981;
-    margin-right: 0.5rem;
-}
-
+/* Mobile menu */
 #mobileMenu {
-    position: absolute;
-    width: 100%;
+    position: fixed;
     top: 64px;
+    left: 0;
+    right: 0;
     background: white;
+    z-index: 40;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
@@ -217,6 +123,7 @@ section {
     color: #2563EB;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
     .navbar-desktop {
         display: none;
@@ -227,9 +134,4 @@ section {
     .nav-arrow {
         display: none;
     }
-    /* .feature-slider {
-        display: grid;
-        grid-template-columns: 1fr 3fr;
-        gap: 2rem;
-    } */
 }
