@@ -156,4 +156,56 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     mediaQuery.addListener(handleScreenChange);
+
+    // Add to script.js
+
+    const track = document.querySelector('.carousel-track');
+    const slides = track.children;
+    const nextButton = document.getElementById('nextSlide');
+    const prevButton = document.getElementById('prevSlide');
+    const totalSlides = slides.length;
+    const slidesPerView = window.innerWidth >= 768 ? 3 : 1;
+    let currentIndex = 0;
+    
+    function updateCarousel() {
+        const slideWidth = slides[0].offsetWidth;
+        const maxIndex = totalSlides - slidesPerView;
+        
+        // Limitar el índice
+        currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
+        
+        track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+        
+        // Actualizar estado de botones
+        prevButton.classList.toggle('opacity-50', currentIndex === 0);
+        nextButton.classList.toggle('opacity-50', currentIndex >= maxIndex);
+        
+        // Actualizar indicadores
+        document.querySelectorAll('.carousel-indicators button').forEach((btn, idx) => {
+            btn.classList.toggle('bg-blue-600', idx === currentIndex);
+            btn.classList.toggle('bg-gray-300', idx !== currentIndex);
+        });
+    }
+
+    nextButton?.addEventListener('click', () => {
+        if (currentIndex < totalSlides - slidesPerView) {
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+
+    prevButton?.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+
+    // Actualizar en resize
+    window.addEventListener('resize', updateCarousel);
+    
+    // Inicializar
+    updateCarousel();
+
 });
+

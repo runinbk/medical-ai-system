@@ -96,6 +96,10 @@ section {
     border: 2px solid #3b82f6;
 }
 
+.carousel-track {
+    transition: transform 0.3s ease-in-out;
+}
+
 /* Mobile menu */
 #mobileMenu {
     position: fixed;
@@ -133,5 +137,9 @@ section {
     }
     .nav-arrow {
         display: none;
+    }
+
+    .disease-card {
+        width: 100%;
     }
 }
