@@ -1,14 +1,10 @@
+# .dockerignore
 node_modules
 npm-debug.log
-Dockerfile
-.dockerignore
+.env
 .git
 .gitignore
 README.md
-.env
-*.md
-tests
-coverage
-uploads/*
-logs/*
-.vscode
+.dockerignore
+Dockerfile
+docker-compose*.yml

@@ -1,30 +1,25 @@
-# Dockerfile
 FROM node:20-alpine
 
-# Crear directorio de la aplicación
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Instalar dependencias del sistema
-RUN apk add --no-cache \
-    postgresql-client \
-    python3 \
-    make \
-    g++
-
-# Copiar package.json y package-lock.json
+# Copiar archivos de dependencias
 COPY package*.json ./
 
-# Instalar dependencias
-RUN npm ci --only=production
+# Instalar dependencias incluyendo las de desarrollo
+RUN npm install
+
+# Instalar sequelize-cli globalmente
+RUN npm install -g sequelize-cli
 
 # Copiar el código fuente
 COPY . .
 
-# Crear directorios necesarios
-RUN mkdir -p uploads/documentos uploads/imagenes
+# Variables de entorno por defecto
+ENV NODE_ENV=production \
+    PORT=3000
 
 # Exponer puerto
 EXPOSE 3000
 
-# Comando para iniciar la aplicación
+# Comando de inicio
 CMD ["npm", "start"]
