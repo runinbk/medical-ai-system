@@ -187,25 +187,73 @@ module.exports = {
 
 ## 3. Modificación de Tablas Existentes
 
-También puedes generar migraciones para modificar tablas:
+Te ayudo a añadir el campo descripción a tu tabla Prueba manteniendo los datos existentes.
+
+1. Primero, genera una nueva migración:
 
 ```bash
-npx sequelize-cli migration:generate --name add-role-to-users
+npx sequelize-cli migration:generate --name add_descripcion_to_prueba
 ```
 
+2. En la nueva migración que se generó, añade el código para agregar la columna:
+
 ```javascript
+'use strict';
+
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn('Users', 'role', {
-      type: Sequelize.STRING
+  async up(queryInterface, Sequelize) {
+    await queryInterface.addColumn('Pruebas', 'descripcion', {
+      type: Sequelize.STRING,
+      allowNull: true // permite nulos para los registros existentes
     });
   },
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn('Users', 'role');
+  async down(queryInterface, Sequelize) {
+    await queryInterface.removeColumn('Pruebas', 'descripcion');
   }
 };
 ```
+
+3. Actualiza el modelo Prueba (`models/prueba.js`):
+
+```javascript
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Prueba extends Model {
+    static associate(models) {
+      // define association here
+    }
+  }
+  Prueba.init({
+    nombre: DataTypes.STRING,
+    email: DataTypes.STRING,
+    descripcion: DataTypes.STRING  // Añadimos el nuevo campo
+  }, {
+    sequelize,
+    modelName: 'Prueba',
+  });
+  return Prueba;
+};
+```
+
+4. Ejecuta la migración:
+
+```bash
+npx sequelize-cli db:migrate
+```
+
+Esto añadirá la columna 'descripcion' a tu tabla manteniendo todos los datos existentes. La columna se creará permitiendo valores nulos (allowNull: true) para que los registros existentes no causen problemas.
+
+Si necesitas revertir el cambio en algún momento, puedes usar:
+
+```bash
+npx sequelize-cli db:migrate:undo
+```
+
+¿Necesitas hacer algún otro cambio en la tabla?
 
 ## 4. Tipos de Cambios en Migraciones
 
