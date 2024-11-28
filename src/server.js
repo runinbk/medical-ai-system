@@ -18,12 +18,7 @@ class Server {
             consultas: '/api/consultas',
             examenes: '/api/examenes',
             documentos: '/api/documentos',
-            diagnosticosIA: '/api/diagnosticos-ia',
-
-            users: '/api/users',
-            prescriptions: '/api/prescriptions',
-            search: '/api/search',
-            uploads: '/api/uploads'
+            diagnosticosIA: '/api/diagnosticos-ia'
         };
 
         // Conectar a base de datos
@@ -75,12 +70,15 @@ class Server {
             limits: { fileSize: 50 * 1024 * 1024 }, // 50MB max-file-size
             abortOnLimit: true
         }));
+
+        // Aumentar el límite de payload para JSON porque las imágenes en base64 son grandes
+        this.app.use(express.json({ limit: '50mb' }));
+        this.app.use(express.urlencoded({ limit: '50mb', extended: true }));
     }
 
     routes() {
         // // Auth routes
         this.app.use(this.paths.auth, require('./routes/auth.routes'));
-        // this.app.use(this.paths.users, require('../routes/users'));
         
         // // Medical records routes
         this.app.use(this.paths.pacientes, require('./routes/pacientes.routes'));
@@ -90,12 +88,9 @@ class Server {
         // // Document management routes
         this.app.use(this.paths.examenes, require('./routes/examenes.routes'));
         this.app.use(this.paths.documentos, require('./routes/documentos.routes'));
-        // this.app.use(this.paths.prescriptions, require('../routes/prescriptions'));
         
         // // AI and utilities routes
         this.app.use(this.paths.diagnosticosIA, require('./routes/diagnosticoIA.routes'));
-        // this.app.use(this.paths.search, require('../routes/search'));
-        // this.app.use(this.paths.uploads, require('../routes/uploads'));
 
         // 404 handler
         this.app.use((req, res) => {

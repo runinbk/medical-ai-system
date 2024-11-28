@@ -1,78 +1,52 @@
-// src/controllers/diagnosticoIA.controller.js
-const { DiagnosticoIA, ModeloIA, Paciente, Examen, Usuario } = require('../models');
+
+const { DiagnosticoIA, Usuario, Paciente } = require('../models');
 const IAService = require('../services/ia.service');
-const path = require('path');
 
 const diagnosticoIAController = {
-    // Realizar nuevo análisis
-    analizar: async (req, res) => {
+    // Crear nuevo diagnóstico
+    crear: async (req, res) => {
         try {
-            const { paciente_id, examen_id, tipo_analisis } = req.body;
+            const { 
+                id_paciente, 
+                diagnostico_ia, 
+                imagen_original 
+            } = req.body;
 
-            // Verificar archivo
-            if (!req.files || !req.files.imagen) {
+            // Verificar que se proporcionen los campos requeridos
+            if (!id_paciente || !diagnostico_ia || !imagen_original) {
                 return res.status(400).json({
-                    msg: 'No se ha proporcionado imagen para analizar'
+                    msg: 'Todos los campos requeridos deben ser proporcionados'
                 });
             }
 
-            // Verificar paciente y examen
-            const paciente = await Paciente.findByPk(paciente_id);
+            // Verificar paciente
+            const paciente = await Paciente.findByPk(id_paciente);
             if (!paciente) {
                 return res.status(404).json({
                     msg: 'Paciente no encontrado'
                 });
             }
 
-            // Obtener modelo IA activo para el tipo de análisis
-            const modelo = await ModeloIA.findOne({
-                where: {
-                    tipo_analisis,
-                    activo: true
-                },
-                order: [['created_at', 'DESC']]
-            });
-
-            if (!modelo) {
-                return res.status(404).json({
-                    msg: 'No hay modelo disponible para este tipo de análisis'
-                });
-            }
-
-            // Procesar y guardar imagen
-            const imagen = req.files.imagen;
-            const nombreArchivo = `${Date.now()}-${imagen.name}`;
-            const uploadPath = path.join(__dirname, '../../uploads/imagenes', nombreArchivo);
-            await imagen.mv(uploadPath);
-
-            // Realizar análisis con IA
-            const resultadoIA = await IAService.analizarImagen(nombreArchivo, tipo_analisis);
-            const interpretacion = IAService.interpretarResultados(resultadoIA);
-
-            // Crear registro de diagnóstico
+            // Procesar imagen con IA 
+            const resultado = await IAService.procesarImagen(imagen_original);
+            
+            // Crear diagnóstico
             const diagnostico = await DiagnosticoIA.create({
-                paciente_id,
-                examen_id,
-                modelo_id: modelo.id,
-                imagen_url: nombreArchivo,
-                resultado: resultadoIA,
-                anomalia_detectada: interpretacion.anomalia_detectada,
-                gravedad: interpretacion.gravedad,
-                confianza: interpretacion.confianza,
-                recomendaciones: interpretacion.recomendaciones
+                id_paciente,
+                id_user: req.usuario.id, // Tomado del token JWT
+                diagnostico_ia,
+                imagen_original,
+                imagen_marcada_ia: resultado.imagen_marcada
             });
 
             res.status(201).json({
-                msg: 'Análisis completado exitosamente',
-                diagnostico: {
-                    ...diagnostico.toJSON(),
-                    detalles: interpretacion.detalles
-                }
+                msg: 'Diagnóstico creado exitosamente',
+                diagnostico
             });
         } catch (error) {
-            console.error('Error en análisis IA:', error);
+            console.error('Error al crear diagnóstico:', error);
             res.status(500).json({
-                msg: 'Error al realizar el análisis'
+                msg: 'Error al crear el diagnóstico'
             });
         }
     },
@@ -81,25 +55,19 @@ const diagnosticoIAController = {
     obtenerTodos: async (req, res) => {
         try {
             const diagnosticos = await DiagnosticoIA.findAll({
-                where: { activo: true },
                 include: [
                     {
                         model: Paciente,
                         as: 'paciente',
-                        attributes: ['nombre', 'email']
-                    },
-                    {
-                        model: ModeloIA,
-                        as: 'modelo',
-                        attributes: ['nombre', 'version']
+                        attributes: ['nombre', 'apellido']
                     },
                     {
                         model: Usuario,
-                        as: 'validador',
-                        attributes: ['nombre']
+                        as: 'usuario',
+                        attributes: ['nombre', 'apellido']
                     }
                 ],
-                order: [['fecha', 'DESC']]
+                order: [['created_at', 'DESC']]
             });
 
             res.json(diagnosticos);
@@ -116,22 +84,17 @@ const diagnosticoIAController = {
         try {
             const { id } = req.params;
             const diagnostico = await DiagnosticoIA.findOne({
-                where: { id, activo: true },
+                where: { id },
                 include: [
                     {
                         model: Paciente,
                         as: 'paciente',
-                        attributes: ['nombre', 'email']
-                    },
-                    {
-                        model: ModeloIA,
-                        as: 'modelo',
-                        attributes: ['nombre', 'version']
+                        attributes: ['nombre', 'apellido']
                     },
                     {
                         model: Usuario,
-                        as: 'validador',
-                        attributes: ['nombre']
+                        as: 'usuario',
+                        attributes: ['nombre', 'apellido']
                     }
                 ]
             });
@@ -151,14 +114,14 @@ const diagnosticoIAController = {
         }
     },
 
-    // Validar diagnóstico
-    validar: async (req, res) => {
+    // Actualizar diagnóstico médico
+    actualizarDiagnosticoMedico: async (req, res) => {
         try {
             const { id } = req.params;
-            const { estado, comentarios_medico } = req.body;
+            const { diagnostico_medico } = req.body;
 
             const diagnostico = await DiagnosticoIA.findOne({
-                where: { id, activo: true }
+                where: { id }
             });
 
             if (!diagnostico) {
@@ -167,26 +130,19 @@ const diagnosticoIAController = {
                 });
             }
 
-            // Validar diagnóstico
-            const validacion = await IAService.validarResultados(id, req.usuario.id, {
-                estado,
-                comentarios: comentarios_medico
-            });
-
+            // Actualizar solo el diagnóstico médico
             await diagnostico.update({
-                estado,
-                comentarios_medico,
-                validado_por: req.usuario.id
+                diagnostico_medico
             });
 
             res.json({
-                msg: 'Diagnóstico validado exitosamente',
+                msg: 'Diagnóstico médico actualizado exitosamente',
                 diagnostico
             });
         } catch (error) {
-            console.error('Error al validar diagnóstico:', error);
+            console.error('Error al actualizar diagnóstico médico:', error);
             res.status(500).json({
-                msg: 'Error al validar diagnóstico'
+                msg: 'Error al actualizar diagnóstico médico'
             });
         }
     },
@@ -194,26 +150,18 @@ const diagnosticoIAController = {
     // Obtener diagnósticos por paciente
     obtenerPorPaciente: async (req, res) => {
         try {
-            const { paciente_id } = req.params;
+            const { id_paciente } = req.params;
             
             const diagnosticos = await DiagnosticoIA.findAll({
-                where: { 
-                    paciente_id,
-                    activo: true
-                },
+                where: { id_paciente },
                 include: [
                     {
-                        model: ModeloIA,
-                        as: 'modelo',
-                        attributes: ['nombre', 'version']
-                    },
-                    {
                         model: Usuario,
-                        as: 'validador',
-                        attributes: ['nombre']
+                        as: 'usuario',
+                        attributes: ['nombre', 'apellido']
                     }
                 ],
-                order: [['fecha', 'DESC']]
+                order: [['created_at', 'DESC']]
             });
 
             res.json(diagnosticos);

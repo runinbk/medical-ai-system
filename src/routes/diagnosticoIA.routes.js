@@ -1,14 +1,14 @@
-// src/routes/diagnosticoIA.routes.js
+
 const { Router } = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validateJWT } = require('../middlewares/validar-jwt');
 const { validarRoles } = require('../middlewares/validar-roles');
 const { 
-    analizar,
+    crear,
     obtenerTodos,
     obtenerPorId,
-    validar,
+    actualizarDiagnosticoMedico,
     obtenerPorPaciente
 } = require('../controllers/diagnosticoIA.controller');
 
@@ -17,43 +17,39 @@ const router = Router();
 // Todas las rutas requieren autenticación
 router.use(validateJWT);
 
-// Realizar análisis
-router.post('/analizar', [
+// Crear nuevo diagnóstico
+router.post('/', [
     validarRoles('ADMIN', 'DOCTOR'),
-    check('paciente_id', 'El ID del paciente es obligatorio').isInt(),
-    check('tipo_analisis', 'El tipo de análisis es obligatorio').isIn([
-        'RADIOGRAFIA',
-        'TOMOGRAFIA',
-        'RESONANCIA',
-        'OTRO'
-    ]),
+    check('id_paciente', 'El ID del paciente es obligatorio').isInt(),
+    check('diagnostico_ia', 'El diagnóstico IA es obligatorio').not().isEmpty(),
+    check('imagen_original', 'La imagen original es obligatoria').not().isEmpty(),
     validarCampos
-], analizar);
+], crear);
 
 // Obtener todos los diagnósticos
 router.get('/', [
-    validarRoles('ADMIN', 'DOCTOR', 'ENFERMERO')
+    validarRoles('ADMIN', 'DOCTOR')
 ], obtenerTodos);
 
 // Obtener diagnóstico por ID
 router.get('/:id', [
-    validarRoles('ADMIN', 'DOCTOR', 'ENFERMERO'),
+    validarRoles('ADMIN', 'DOCTOR'),
     check('id', 'El ID debe ser un número válido').isInt(),
     validarCampos
 ], obtenerPorId);
 
-// Validar diagnóstico
-router.put('/:id/validar', [
+// Actualizar diagnóstico médico
+router.put('/:id/diagnostico-medico', [
     validarRoles('ADMIN', 'DOCTOR'),
     check('id', 'El ID debe ser un número válido').isInt(),
-    check('estado', 'El estado debe ser VALIDADO o RECHAZADO').isIn(['VALIDADO', 'RECHAZADO']),
+    check('diagnostico_medico', 'El diagnóstico médico es obligatorio').not().isEmpty(),
     validarCampos
-], validar);
+], actualizarDiagnosticoMedico);
 
 // Obtener diagnósticos por paciente
-router.get('/paciente/:paciente_id', [
-    validarRoles('ADMIN', 'DOCTOR', 'ENFERMERO'),
-    check('paciente_id', 'El ID del paciente debe ser un número válido').isInt(),
+router.get('/paciente/:id_paciente', [
+    validarRoles('ADMIN', 'DOCTOR'),
+    check('id_paciente', 'El ID del paciente debe ser un número válido').isInt(),
     validarCampos
 ], obtenerPorPaciente);
 
