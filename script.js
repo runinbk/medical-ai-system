@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description1: 'Permite almacenar y acceder a la información médica de los pacientes de manera segura y organizada. Desde antecedentes médicos, alergias, hasta tratamientos previos, todo está disponible en un único lugar para facilitar la toma de decisiones.  ',
             description2: 'Los médicos pueden consultar los historiales clínicos desde cualquier dispositivo autorizado, eliminando la necesidad de depender de documentos físicos o procesos manuales. Esto asegura una atención más eficiente.',
             description3: '',
-            images: ['./img/SDG-1.png', './img/SDG-2.png']
+            images: ['./img/SDG-1.PNG', './img/SDG-2.PNG']
         },
         'mod-diagnostico': {
             title: 'Diagnóstico Asistido por IA',
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description1: 'Utilizando modelos avanzados de aprendizaje profundo, el sistema analiza radiografías de tórax para detectar anomalías como tumores, infecciones y otras patologías con alta precisión.',
             description2: 'Ofrece diagnósticos rápidos en cuestión de segundos, ayudando a priorizar pacientes críticos y reduciendo los tiempos de espera.',
             description3: 'Funciona como un apoyo para el personal médico, sugiriendo posibles diagnósticos basados en patrones detectados, pero dejando siempre la decisión final en manos del especialista.',
-            images: ['./img/ia-diagnostico-1-0.jpg', './img/ia-diagnostico-2-0.jpg']
+            images: ['./img/ia-diagnostico-1-0.JPG', './img/ia-diagnostico-2-0.JPG']
         },
         'mod-doctores': {
             title: 'Sistema Gestor de Documentos',
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description1: 'Todos los registros, desde recetas hasta informes de laboratorio, son almacenados digitalmente en un sistema seguro y accesible. Esto elimina la dependencia de archivos físicos y reduce el riesgo de pérdida de información.',
             description2: 'Incluye un motor de búsqueda avanzado que permite localizar documentos específicos en segundos mediante palabras clave, fechas o categorías.',
             description3: 'arantiza la protección de los datos sensibles de los pacientes mediante cifrado, permisos personalizados y cumplimiento con normativas internacionales.',
-            images: ['./img/HCE-1-0.jpg', './img/HCE-2.png']
+            images: ['./img/HCE-1-0.JPG', './img/HCE-2.PNG']
         }
     };
 
